@@ -1,0 +1,21 @@
+{
+  "driver": "postgresql",
+  "protocol": "tcp",
+  "host": "localhost",
+  "port": 5432,
+  "user": "file-reader-dev",
+  "password": "password",
+  "directory": "./db/migrations",
+  "table": "migrations",
+  "environments": {
+    "production": {
+      "database": "NOPE"
+    },
+    "development": {
+      "database": "NOPE"
+    },
+    "local": {
+      "database": "file-reader"
+    }
+  }
+}
