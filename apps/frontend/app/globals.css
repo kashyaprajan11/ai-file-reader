@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #000;
+  min-height: 100vh;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: rgb(220, 53, 69);
+}

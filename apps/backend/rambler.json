@@ -3,7 +3,7 @@
   "protocol": "tcp",
   "host": "localhost",
   "port": 5432,
-  "user": "file-reader-dev",
+  "user": "file_reader_dev",
   "password": "password",
   "directory": "./db/migrations",
   "table": "migrations",
@@ -14,8 +14,9 @@
     "development": {
       "database": "NOPE"
     },
+
     "local": {
-      "database": "file-reader"
+      "database": "file_reader"
     }
   }
 }

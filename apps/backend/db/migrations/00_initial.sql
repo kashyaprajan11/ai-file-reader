@@ -1,7 +1,8 @@
 -- rambler up
 create schema if not exists file_reader_public;
 
-create extension if not exists pg_crypto;
+create extension if not exists pgcrypto;
+comment on extension pgcrypto IS 'cryptographic functions, uuids';
 create extension if not exists citext;
 create extension if not exists pg_net;
 create extension if not exists vector;
@@ -18,7 +19,7 @@ revoke usage on schema file_reader_public from file_reader_user, file_reader_ano
 drop extension if exists vector;
 drop extension if exists pg_net;
 drop extension if exists citext;
-drop extenstion if exists pg_crypto;
+drop extenstion if exists pgcrypto;
 
 drop role if exists file_reader_user;
 drop role if exists file_reader_anon;
