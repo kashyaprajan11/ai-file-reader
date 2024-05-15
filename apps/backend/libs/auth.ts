@@ -3,6 +3,13 @@ import { Request } from "express";
 
 const pgPool = require("../db/index.js");
 
+interface User {
+  id: string;
+  email: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 async function signup(req: Request) {
   const { email, password } = req.body;
   let newUser = null;
@@ -22,7 +29,7 @@ async function signup(req: Request) {
 async function login(email: string, password: string, cb: Function) {
   try {
     const userRes = await pgPool.query(
-      `select * from file_reader.public where email = $1`,
+      `select * from file_reader_public.user where email = $1`,
       [email]
     );
     const user = userRes.rows[0];
@@ -34,7 +41,7 @@ async function login(email: string, password: string, cb: Function) {
     const isMatched = await bcrypt.compare(password, user.password_hash);
 
     if (isMatched) {
-      return cb(null, user);
+      return cb(null, { id: user.id, email: user.email } as User);
     } else {
       return cb(null, false, {
         message: "Incorrect password",

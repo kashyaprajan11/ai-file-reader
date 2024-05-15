@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import { appActionTypes, useAppContext } from "../appContext";
 
 import Toast from "@/components/Toast";
 
@@ -20,6 +21,8 @@ const resolver = {
 };
 
 export default function Register() {
+  const { dispatch } = useAppContext();
+
   const [showToast, setShowToast] = useState<boolean>(false);
 
   const { watch, control, handleSubmit } = useForm({
@@ -31,7 +34,7 @@ export default function Register() {
     setShowToast((prev) => !prev);
   };
 
-  const handleCreateUser = async ({
+  const handleLogin = async ({
     email,
     password,
   }: {
@@ -41,15 +44,18 @@ export default function Register() {
     try {
       const res = await axios({
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         data: {
           email,
           password,
         },
       });
-      console.log("Successfully registered applicant", res);
+      dispatch({
+        type: appActionTypes.UPDATE_LOGGED_IN_USER,
+        user: res?.data?.user,
+      });
     } catch (err) {
-      console.log("Problems faced while creating user", err);
+      console.log("Problems faced while logging in", err);
     }
   };
   return (
@@ -87,7 +93,7 @@ export default function Register() {
           </div>
         )}
       />
-      <button className="btn w-full" onClick={handleSubmit(handleCreateUser)}>
+      <button className="btn w-full" onClick={handleSubmit(handleLogin)}>
         Submit
       </button>
       {showToast && <Toast />}

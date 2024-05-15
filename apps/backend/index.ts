@@ -39,12 +39,11 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: "lax",
-      secure: false, // Todo: make this true
     },
   })
 );
+
+require("./libs/passportConfig.js");
 app.use(passport.initialize());
 app.use(passport.session());
 
