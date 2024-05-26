@@ -1,12 +1,12 @@
 "use client";
-
+import axios from "axios";
 import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
-import { appActionTypes, useAppContext } from "../appContext";
+import { useRouter } from "next/navigation";
 
+import { appActionTypes, useAppContext } from "../appContext";
 import Toast from "@/components/Toast";
 
 const resolver = {
@@ -21,6 +21,7 @@ const resolver = {
 };
 
 export default function Register() {
+  const router = useRouter();
   const { dispatch } = useAppContext();
 
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -54,6 +55,7 @@ export default function Register() {
         type: appActionTypes.UPDATE_LOGGED_IN_USER,
         user: res?.data?.user,
       });
+      router.push("/dashboard");
     } catch (err) {
       console.log("Problems faced while logging in", err);
     }
