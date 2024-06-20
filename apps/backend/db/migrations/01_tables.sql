@@ -27,17 +27,8 @@ create table if not exists file_reader_public.document_sections (
     updated_at timestamptz not null default now()
 );
 
-create table if not exists file_reader_private.session (
-    "sid" varchar NOT NULL COLLATE "default",
-    "sess" json NOT NULL,
-    "expire" timestamp(6) NOT NULL
-) WITH (OIDS=FALSE);
-alter table file_reader_private.session add constraint "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
-
 -- rambler down
 
-alter table file_reader_private.session drop constraint "session_pkey";
-drop table if exists file_reader_private.session;
 drop table if exists file_reader_public.document_sections;
 drop table if exists file_reader_public.document;
 drop table if exists file_reader_public.user;

@@ -1,3 +1,5 @@
+"use client";
+
 export default function Home() {
-  return <div>index</div>;
+  return <div>Index page </div>;
 }

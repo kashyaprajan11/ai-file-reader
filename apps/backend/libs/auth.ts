@@ -26,29 +26,28 @@ async function signup(req: Request) {
   return newUser;
 }
 
-async function login(email: string, password: string, cb: Function) {
+async function login(email: string, password: string) {
   try {
     const userRes = await pgPool.query(
       `select * from file_reader_public.user where email = $1`,
       [email]
     );
     const user = userRes.rows[0];
+
     if (!user) {
-      return cb(null, false, {
-        message: "Account does not exists",
-      });
+      return null;
     }
     const isMatched = await bcrypt.compare(password, user.password_hash);
 
+    console.log("ismatched in fn", isMatched);
+
     if (isMatched) {
-      return cb(null, { id: user.id, email: user.email } as User);
+      return user;
     } else {
-      return cb(null, false, {
-        message: "Incorrect password",
-      });
+      return null;
     }
   } catch (err) {
-    cb(err);
+    console.log("Error faced while logging in", err);
   }
 }
 
