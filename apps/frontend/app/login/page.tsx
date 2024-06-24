@@ -50,7 +50,9 @@ export default function Register() {
           email,
           password,
         },
+        withCredentials: true,
       });
+
       dispatch({
         type: appActionTypes.UPDATE_LOGGED_IN_USER,
         user: res?.data?.user,

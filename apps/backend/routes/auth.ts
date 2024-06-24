@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { signup, login } from "../libs/auth.js";
+import checkJwtAuth from "../middlewares/checkJwtAuth.js";
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
   if (user === null) {
     return res.status(403).json({
-      error: "Invalid login",
+      message: "Invalid login",
     });
   }
 
@@ -39,18 +40,13 @@ router.post("/login", async (req: Request, res: Response) => {
   // Send jwt token
   const token = jwt.sign(user, secret, { expiresIn: "1h" });
 
-  console.log(token);
-
   const cookieRes = res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "none",
+    sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    // secure: true,
     // maxAge: 1000000,
     // signed: true,
   });
-
-  console.log(cookieRes);
 
   res.status(200).json({
     user,
@@ -58,13 +54,18 @@ router.post("/login", async (req: Request, res: Response) => {
 });
 
 router.post("/logout", (req: Request, res: Response, next: NextFunction) => {
-  req.logout((err) => {
-    if (err) {
-      next(err);
-    } else {
-      res.status(200).json({ message: "ok" });
-    }
-  });
+  if (req.cookies.token) {
+    res.clearCookie("token");
+  }
+  res.status(200).json({ message: "Logout successful" });
+});
+
+router.get("/auth-check", checkJwtAuth, (req: Request, res: Response) => {
+  if (!!req.user) {
+    return res.status(200).json({ user: req.user });
+  } else {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
 });
 
 export default router;

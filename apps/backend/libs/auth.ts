@@ -39,8 +39,6 @@ async function login(email: string, password: string) {
     }
     const isMatched = await bcrypt.compare(password, user.password_hash);
 
-    console.log("ismatched in fn", isMatched);
-
     if (isMatched) {
       return user;
     } else {

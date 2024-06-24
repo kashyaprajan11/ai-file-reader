@@ -7,13 +7,13 @@ const withProtectedRoute = <P extends ComponentType>(
 ) => {
   return (props: P) => {
     const router = useRouter();
-    const { user } = useAppContext();
+    const { user, isLoading } = useAppContext();
 
     useEffect(() => {
-      if (!user) {
+      if (!isLoading && !user) {
         router.push("/login");
       }
-    }, [user, router]);
+    }, [user, isLoading]);
 
     if (!user) {
       return <div>Redirecting to Login pages...</div>;

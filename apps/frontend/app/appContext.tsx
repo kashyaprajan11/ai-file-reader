@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 interface User {
+  id: string;
   email: string;
   createdAt?: Date;
 }
@@ -54,6 +55,40 @@ function appReducer(state = initialState, action: Action): AppContextData {
 function AppProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [state, dispatch] = React.useReducer(appReducer, initialState);
+
+  React.useEffect(() => {
+    // Authorize and go to dashboard if valid token exists
+    dispatch({
+      type: appActionTypes.TOGGLE_LOADING,
+      isLoading: true,
+    });
+    async function checkAuth() {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/auth-check`,
+          {
+            withCredentials: true,
+          }
+        );
+
+        // If user exists set the user in appContext and push to dashboard page
+        if (!!res.data.user) {
+          dispatch({
+            type: appActionTypes.UPDATE_LOGGED_IN_USER,
+            user: { id: res.data.user?.id, email: res.data.user?.email },
+          });
+          router.push("/dashboard");
+        }
+      } catch (err) {
+        console.log("Error encountered", err);
+      }
+    }
+    checkAuth();
+    dispatch({
+      type: appActionTypes.TOGGLE_LOADING,
+      isLoading: false,
+    });
+  }, []);
 
   const handleLogout = async () => {
     try {

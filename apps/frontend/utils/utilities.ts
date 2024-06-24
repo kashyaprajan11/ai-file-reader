@@ -2,10 +2,24 @@ import { Octokit } from "octokit";
 
 const octokit = new Octokit();
 
-export async function getGithubReadme() {
-  const res = await octokit.request("GET /repos/calcom/cal.com/readme", {
-    owner: "calcom",
-    repo: "cal.com",
+export const extractRepoDetails = (url: string) => {
+  const regex = /github\.com\/([^\/]+)\/([^\/]+)/;
+  const match = url.match(regex);
+
+  if (match) {
+    const owner = match[1];
+    const repo = match[2];
+    return { owner, repo };
+  } else {
+    alert("Invalid GitHub URL");
+    return undefined;
+  }
+};
+
+export async function getGithubReadme(owner: string, repo: string) {
+  const res = await octokit.request(`GET /repos/${owner}/${repo}/readme`, {
+    owner,
+    repo,
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
     },
@@ -15,6 +29,5 @@ export async function getGithubReadme() {
   const decodedContent = Buffer.from(res.data.content, "base64").toString(
     "utf-8"
   );
-  console.log(decodedContent);
   return decodedContent;
 }

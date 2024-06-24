@@ -9,7 +9,7 @@ import authRoutes from "./routes/auth.js";
 
 const PORT: Number = Number(process.env.PORT);
 
-const whitelistedOrigins = ["http://localhost:3000", "http://localhost:3004"];
+const whitelistedOrigins = ["http://localhost:3000"];
 
 dotenv.config();
 

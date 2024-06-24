@@ -47,7 +47,6 @@ export default function Register() {
           password,
         },
       });
-      console.log("Successfully registered applicant", res);
     } catch (err) {
       console.log("Problems faced while creating user", err);
     }
