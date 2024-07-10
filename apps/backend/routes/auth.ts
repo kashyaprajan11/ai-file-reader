@@ -5,13 +5,6 @@ import checkJwtAuth from "../middlewares/checkJwtAuth.js";
 
 const router = express.Router();
 
-interface User {
-  id: string;
-  email: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
 router.post("/register", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {

@@ -6,6 +6,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import authRoutes from "./routes/auth.js";
+import githubRoutes from "./routes/github.js";
 
 const PORT: Number = Number(process.env.PORT);
 
@@ -28,15 +29,7 @@ app.use(morgan("tiny"));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
-
-// Handling GET / Request
-app.get("/", (req, res) => {
-  res.send("Welcome to typescript backend!");
-});
-
-app.get("/test", (req, res) => {
-  res.status(200).json({ success: true });
-});
+app.use("/github", githubRoutes);
 
 // Server setup
 app.listen(PORT, () => {

@@ -14,16 +14,20 @@ function Dashboard() {
   };
 
   const handleClick = async () => {
+    console.log("button cliced");
+    // Save the url first
+
     try {
-      const details = extractRepoDetails(url);
-      if (details) {
-        const { owner, repo } = details;
-        const content = await getGithubReadme(owner, repo);
-        const processMd = processMarkdown(content);
-        console.log(processMd);
-      }
+      let res = await axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/github/github-url`,
+        data: {
+          githubUrl: url,
+        },
+        withCredentials: true,
+      });
     } catch (err) {
-      alert(err);
+      console.log("Problems encountered while saving github url", err);
     }
   };
 

@@ -3,13 +3,6 @@ import { Request } from "express";
 
 const pgPool = require("../db/index.js");
 
-interface User {
-  id: string;
-  email: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
 async function signup(req: Request) {
   const { email, password } = req.body;
   let newUser = null;
@@ -40,6 +33,11 @@ async function login(email: string, password: string) {
     const isMatched = await bcrypt.compare(password, user.password_hash);
 
     if (isMatched) {
+      const res = await pgPool.query(
+        `SELECT set_config('jwt.claims.user_id', $1, false)`,
+        [user.id]
+      );
+      console.log(res);
       return user;
     } else {
       return null;
