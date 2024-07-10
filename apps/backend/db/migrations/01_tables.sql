@@ -16,6 +16,7 @@ create table if not exists file_reader_public.document (
     updated_at timestamptz not null default now()
 );
 
+-- Todo: For this table we can store owner and repo details as well. For one owner there can only be one repo here.
 create table if not exists file_reader_public.github_url (
     id uuid primary key default gen_random_uuid(),
     creator_id uuid not null references file_reader_public.user(id),

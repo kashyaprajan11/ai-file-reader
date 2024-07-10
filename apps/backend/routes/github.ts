@@ -19,14 +19,14 @@ router.post(
     try {
       const user = req.user;
       const newRes = await pgPool.query(
-        `insert into file_reader_public.github_url(creator_id, url) values ($1, $2) returning *`,
+        `insert into file_reader_public.github_url(creator_id, url) values ($1, $2) returning id, creator_id, url`,
         [user?.id, githubUrl]
       );
       const newUrl = newRes.rows[0];
 
       return res
         .status(200)
-        .json({ message: "Successfully inserted github url" });
+        .json({ message: "Successfully inserted github url", data: newUrl });
     } catch (err) {
       console.log("Error adding url", err);
       res.status(503).json({ message: "Server is busy. Please try again" });

@@ -11,7 +11,6 @@ export const extractRepoDetails = (url: string) => {
     const repo = match[2];
     return { owner, repo };
   } else {
-    alert("Invalid GitHub URL");
     return undefined;
   }
 };
