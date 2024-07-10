@@ -14,7 +14,6 @@ function Dashboard() {
   };
 
   const handleClick = async () => {
-    console.log("button cliced");
     // Save the url first
 
     try {

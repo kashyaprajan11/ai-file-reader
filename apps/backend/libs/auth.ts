@@ -37,7 +37,6 @@ async function login(email: string, password: string) {
         `SELECT set_config('jwt.claims.user_id', $1, false)`,
         [user.id]
       );
-      console.log(res);
       return user;
     } else {
       return null;

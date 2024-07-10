@@ -9,7 +9,6 @@ router.post(
   "/github-url",
   checkJwtAuth,
   async (req: Request, res: Response) => {
-    console.log("route is hit");
     const { githubUrl } = req.body;
     if (!githubUrl) {
       return res.status(500).json({ message: "Github url not provided" });
@@ -24,8 +23,6 @@ router.post(
         [user?.id, githubUrl]
       );
       const newUrl = newRes.rows[0];
-
-      console.log(newUrl);
 
       return res
         .status(200)

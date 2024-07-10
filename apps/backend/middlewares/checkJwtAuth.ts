@@ -8,7 +8,6 @@ export default function checkJwtAuth(
   next: NextFunction
 ) {
   const token = req.cookies.token;
-  console.log("middleware token", token);
   try {
     const secret = process.env.JWT_SECRET as string;
     const user = jwt.verify(token, secret);
