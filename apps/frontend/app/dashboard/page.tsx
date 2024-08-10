@@ -8,12 +8,14 @@ import { processMarkdown } from "@/utils/markdown-parser";
 function Dashboard() {
   // github url
   const [url, setUrl] = React.useState<string>("");
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleChangeUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
 
   const handleClick = async () => {
+    setIsLoading(true);
     // 1. Extract repo details, if correct move to step 2 or show error
     const repoDetails = extractRepoDetails(url);
 
@@ -59,7 +61,29 @@ function Dashboard() {
     } catch (err) {
       console.log("Error encountered while saving sections in db", err);
     }
+
+    setIsLoading(false);
   };
+
+  const handleCheck = async () => {
+    try {
+      const res = await axios({
+        method: "post",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/github/check`,
+        data: {
+          content: "Hello",
+        },
+        withCredentials: true,
+      });
+      console.log(res);
+    } catch (err) {
+      console.log("Error encountered", err);
+    }
+  };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
@@ -69,6 +93,7 @@ function Dashboard() {
         className="bg-white px-2 py-4 rounded max-w-3xl w-full text-black"
       />
       <button onClick={handleClick}>Extract</button>
+      <button onClick={handleCheck}>Check</button>
     </div>
   );
 }

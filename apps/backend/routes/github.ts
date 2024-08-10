@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
-import checkJwtAuth from "../middlewares/checkJwtAuth";
+import checkJwtAuth from "../middlewares/checkJwtAuth.js";
+import { createEmbedding } from "../libs/embedding.js";
 
-const pgPool = require("../db/index");
+import { pgPool } from "../db/index.js";
 
 const router = express.Router();
 
@@ -47,10 +48,16 @@ router.post(
         .status(500)
         .json({ message: "Id for the github-url not provided" });
     }
+    const embedding = await createEmbedding(content);
+    if (embedding === null) {
+      return res
+        .status(500)
+        .json({ message: "Error encountered while creating embedding" });
+    }
     try {
       const newRes = await pgPool.query(
-        `insert into file_reader_public.github_url_sections(github_url_id, content) values ($1, $2) returning *`,
-        [githubUrlId, content]
+        `insert into file_reader_public.github_url_sections(github_url_id, content, embedding) values ($1, $2, $3) returning *`,
+        [githubUrlId, content, embedding]
       );
       const section = newRes.rows[0];
       return res

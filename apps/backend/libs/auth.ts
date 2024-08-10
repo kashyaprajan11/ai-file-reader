@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request } from "express";
-
-const pgPool = require("../db/index.js");
+import {pgPool} from "../db/index.js"
 
 async function signup(req: Request) {
   const { email, password } = req.body;

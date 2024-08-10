@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { User } from "../interface";
+
+import { User } from "../interface/index.js";
 
 export default function checkJwtAuth(
   req: Request,
