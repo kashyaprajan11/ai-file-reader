@@ -8,10 +8,15 @@ import { processMarkdown } from "@/utils/markdown-parser";
 function Dashboard() {
   // github url
   const [url, setUrl] = React.useState<string>("");
+  const [userPrompt, setUserPrompt] = React.useState<string>("");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleChangeUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
+  };
+
+  const handleChangePrompt = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserPrompt(e.target.value);
   };
 
   const handleClick = async () => {
@@ -65,13 +70,13 @@ function Dashboard() {
     setIsLoading(false);
   };
 
-  const handleCheck = async () => {
+  const handleChat = async () => {
     try {
       const res = await axios({
         method: "post",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/github/check`,
+        url: `${process.env.NEXT_PUBLIC_API_URL}/chat/user`,
         data: {
-          content: "Hello",
+          userPrompt: "Hello",
         },
         withCredentials: true,
       });
@@ -87,7 +92,6 @@ function Dashboard() {
 
   return (
     <React.Fragment>
-      {" "}
       <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
         <input
           value={url}
@@ -98,11 +102,11 @@ function Dashboard() {
       </div>
       <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
         <input
-          value={url}
-          onChange={handleChangeUrl}
+          value={userPrompt}
+          onChange={handleChangePrompt}
           className="bg-white px-2 py-4 rounded max-w-3xl w-full text-black"
         />
-        <button onClick={handleClick}>Extract</button>
+        <button onClick={handleChat}>Chat</button>
       </div>
     </React.Fragment>
   );

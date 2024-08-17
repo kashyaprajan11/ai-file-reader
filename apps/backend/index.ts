@@ -7,6 +7,7 @@ import morgan from "morgan";
 
 import authRoutes from "./routes/auth.js";
 import githubRoutes from "./routes/github.js";
+import chatRoutes from "./routes/chat.js";
 
 const PORT: Number = Number(process.env.PORT);
 
@@ -30,6 +31,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/github", githubRoutes);
+app.use("/chat", chatRoutes);
 
 // Server setup
 app.listen(PORT, () => {
