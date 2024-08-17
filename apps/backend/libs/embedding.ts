@@ -1,5 +1,4 @@
 import { pipeline } from "@xenova/transformers";
-import { Request } from "express";
 
 async function createEmbedding(content: string) {
   try {

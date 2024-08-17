@@ -70,4 +70,14 @@ router.post(
   }
 );
 
+// This is the route which changes the text prompt to embedding and run the match_github_section function that is in db
+
+router.get("/get-answer", checkJwtAuth, async(req: Request, res: Response) => {
+  const {question} = req.body
+
+  if(!question) {
+    
+  }
+})
+
 export default router;

@@ -86,15 +86,25 @@ function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
-      <input
-        value={url}
-        onChange={handleChangeUrl}
-        className="bg-white px-2 py-4 rounded max-w-3xl w-full text-black"
-      />
-      <button onClick={handleClick}>Extract</button>
-      <button onClick={handleCheck}>Check</button>
-    </div>
+    <React.Fragment>
+      {" "}
+      <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
+        <input
+          value={url}
+          onChange={handleChangeUrl}
+          className="bg-white px-2 py-4 rounded max-w-3xl w-full text-black"
+        />
+        <button onClick={handleClick}>Extract</button>
+      </div>
+      <div className="flex flex-col justify-center items-center py-6 px-4 gap-4">
+        <input
+          value={url}
+          onChange={handleChangeUrl}
+          className="bg-white px-2 py-4 rounded max-w-3xl w-full text-black"
+        />
+        <button onClick={handleClick}>Extract</button>
+      </div>
+    </React.Fragment>
   );
 }
 

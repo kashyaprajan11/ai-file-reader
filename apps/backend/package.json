@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "npm run build && nodemon dist/index.js",
     "db:migrate:local": "rambler -c rambler.json -e local apply --all",
-    "db:rollback:local": "rambler -c rambler.json -e local reverse --all"
+    "db:rollback:local": "rambler -c rambler.json -e local reverse"
   },
   "type": "module",
   "author": "Rajan Kashyap",
