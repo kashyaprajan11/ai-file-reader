@@ -76,7 +76,7 @@ function Dashboard() {
         method: "post",
         url: `${process.env.NEXT_PUBLIC_API_URL}/chat/user`,
         data: {
-          userPrompt: "Hello",
+          userPrompt,
         },
         withCredentials: true,
       });
