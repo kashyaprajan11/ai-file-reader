@@ -94,9 +94,14 @@ router.post("/user", checkJwtAuth, async (req: Request, res: Response) => {
     const content = codeBlock`
     You're an AI assistant who answers questions about github readme files.
 
+    I'll provide you the contents that are similar to the user prompt by doing a similarity search with pgvector;
+
     You're a chat bot, so keep your replies succinct.
 
-    You're only allowed to use the documents below to answer the question.
+    You're allowed to use the documents below to answer the question.
+
+    Question that the user asked is:
+    ${userPrompt}
 
     If the question isn't related to these documents, say:
     "Sorry, I couldn't find any information on that."
@@ -106,14 +111,14 @@ router.post("/user", checkJwtAuth, async (req: Request, res: Response) => {
 
     Do not go off topic.
 
-    Documents:
+    Github Readme Content:
     ${combinedContent}
   `;
 
     console.log("Combined content", combinedContent);
     const answer = await getChatGptAnswer(content);
 
-    return res.status(200).json({ success: true, answer });
+    return res.status(200).json({ success: true, combinedContent, answer });
   } catch (err) {
     return res.status(500).json({ message: "Failed to fetch chat" });
   }

@@ -9,6 +9,7 @@ function Dashboard() {
   // github url
   const [url, setUrl] = React.useState<string>("");
   const [userPrompt, setUserPrompt] = React.useState<string>("");
+  const [answer, setAnswer] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const handleChangeUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +72,7 @@ function Dashboard() {
   };
 
   const handleChat = async () => {
+    setIsLoading(true);
     try {
       const res = await axios({
         method: "post",
@@ -80,9 +82,11 @@ function Dashboard() {
         },
         withCredentials: true,
       });
-      console.log(res);
+      setAnswer(res?.data?.answer);
     } catch (err) {
       console.log("Error encountered", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -108,6 +112,7 @@ function Dashboard() {
         />
         <button onClick={handleChat}>Chat</button>
       </div>
+      {!!answer && <p>{answer}</p>}
     </React.Fragment>
   );
 }
