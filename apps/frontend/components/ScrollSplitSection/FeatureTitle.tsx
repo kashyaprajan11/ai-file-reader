@@ -4,13 +4,26 @@ import React from "react";
 import { useInView } from "framer-motion";
 import classNames from "classnames";
 
+import { useFeatureStore } from "./store";
+
 type Props = {
   children: React.ReactNode;
+  id: number;
 };
 
-export default function FeatureTitle({ children }: Props) {
+export default function FeatureTitle({ children, id }: Props) {
   const ref = React.useRef<HTMLParagraphElement>(null);
   const isInView = useInView(ref, { margin: "-50% 0px -50% 0px" });
+
+  const setInViewFeature = useFeatureStore((state) => state.setInViewFeature);
+  const inViewFeature = useFeatureStore((state) => state.inViewFeature);
+
+  console.log(inViewFeature);
+
+  React.useEffect(() => {
+    if (isInView) setInViewFeature(id);
+    if (!isInView && inViewFeature === id) setInViewFeature(null);
+  }, [isInView, id, setInViewFeature, inViewFeature]);
 
   return (
     <p
