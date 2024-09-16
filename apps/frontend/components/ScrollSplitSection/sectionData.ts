@@ -10,7 +10,7 @@ import {
 export const features: Array<{
   id: number;
   title: string;
-  card: React.ComponentType;
+  card: React.ComponentType<{ id: number }>;
 }> = [
   {
     id: 1,
