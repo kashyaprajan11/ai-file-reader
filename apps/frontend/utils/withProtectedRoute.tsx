@@ -2,10 +2,10 @@ import { useEffect, ComponentType } from "react";
 import { useAppContext } from "@/app/appContext";
 import { useRouter } from "next/navigation";
 
-const withProtectedRoute = <P extends ComponentType>(
+const withProtectedRoute = <P extends object>(
   WrappedComponent: ComponentType<P>
-) => {
-  return (props: P) => {
+): ComponentType<P> => {
+  const WithProtectedRoute: ComponentType<P> = (props: P) => {
     const router = useRouter();
     const { user, isLoading } = useAppContext();
 
@@ -13,14 +13,18 @@ const withProtectedRoute = <P extends ComponentType>(
       if (!isLoading && !user) {
         router.push("/login");
       }
-    }, [user, isLoading]);
+    }, [user, isLoading, router]);
 
     if (!user) {
-      return <div>Redirecting to Login pages...</div>;
+      return <div>Redirecting to Login page...</div>;
     }
 
     return <WrappedComponent {...props} />;
   };
+
+  WithProtectedRoute.displayName = `WithProtectedRoute(${WrappedComponent.displayName || WrappedComponent.name || "Component"})`;
+
+  return WithProtectedRoute;
 };
 
 export default withProtectedRoute;
