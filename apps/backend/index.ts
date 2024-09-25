@@ -33,6 +33,10 @@ app.use("/auth", authRoutes);
 app.use("/github", githubRoutes);
 app.use("/chat", chatRoutes);
 
+app.get("/health", (_, res) => {
+  res.status(200).json({ health: "ok" });
+});
+
 // Server setup
 app.listen(PORT, () => {
   console.log(
