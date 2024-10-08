@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
+import serverless from "serverless-http";
 
 import authRoutes from "./routes/auth.js";
 import githubRoutes from "./routes/github.js";
@@ -38,8 +39,10 @@ app.get("/health", (_, res) => {
 });
 
 // Server setup
-app.listen(PORT, () => {
-  console.log(
-    "The application is listening " + "on port http://localhost:" + PORT
-  );
-});
+// app.listen(PORT, () => {
+//   console.log(
+//     "The application is listening " + "on port http://localhost:" + PORT
+//   );
+// });
+
+module.exports.handler = serverless(app);

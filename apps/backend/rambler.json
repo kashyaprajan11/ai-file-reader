@@ -1,10 +1,10 @@
 {
   "driver": "postgresql",
   "protocol": "tcp",
-  "host": "john.db.elephantsql.com",
+  "host": "localhost",
   "port": 5432,
-  "user": "vteajicw",
-  "password": "oUhb6Mtkaf2lX2FivPKSuUr6CTmVM4CM",
+  "user": "postgres",
+  "password": "password",
   "directory": "./db/migrations",
   "table": "migrations",
   "environments": {
@@ -16,7 +16,7 @@
     },
 
     "local": {
-      "database": "vteajicw"
+      "database": "ai-file-reader"
     }
   }
 }
