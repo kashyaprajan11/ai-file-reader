@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "db:migrate:local": "rambler -c rambler.json -e local apply --all",
+    "db:rollback:local": "rambler -c rambler.json -e local reverse"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "serverless-http": "^3.2.0",
