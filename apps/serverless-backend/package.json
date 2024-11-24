@@ -2,7 +2,6 @@
   "name": "serverless-backend",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
     "db:migrate:local": "rambler -c rambler.json -e local apply --all",
