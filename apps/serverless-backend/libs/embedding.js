@@ -1,4 +1,4 @@
-import { pipeline } from "@xenova/transformers";
+const { pipeline } = require("@xenova/transformers");
 
 async function createEmbedding(content) {
   try {
@@ -18,4 +18,4 @@ async function createEmbedding(content) {
   }
 }
 
-export { createEmbedding };
+module.exports = { createEmbedding };

@@ -1,8 +1,7 @@
-import express from "express";
-import checkJwtAuth from "../middlewares/checkJwtAuth.js";
-import { createEmbedding } from "../libs/embedding.js";
-
-import { pgPool } from "../db/index.js";
+const express = require("express");
+const checkJwtAuth = require("../middlewares/checkJwtAuth.js");
+const { createEmbedding } = require("../libs/embedding.js");
+const { pgPool } = require("../db/index.js");
 
 const router = express.Router();
 
@@ -71,4 +70,4 @@ router.get("/get-answer", checkJwtAuth, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

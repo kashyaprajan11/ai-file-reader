@@ -1,11 +1,11 @@
-import { codeBlock } from "common-tags";
-import OpenAI from "openai";
-import express from "express";
+const { codeBlock } = require("common-tags");
+const OpenAI = require("openai");
+const express = require("express");
 
-import { pgPool } from "../db/index.js";
-import checkJwtAuth from "../middlewares/checkJwtAuth.js";
-import { createEmbedding } from "../libs/embedding.js";
-import { getChatGptAnswer } from "../libs/openai.js";
+const { pgPool } = require("../db/index.js");
+const checkJwtAuth = require("../middlewares/checkJwtAuth.js");
+const { createEmbedding } = require("../libs/embedding.js");
+const { getChatGptAnswer } = require("../libs/openai.js");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -123,4 +123,4 @@ router.post("/user", checkJwtAuth, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

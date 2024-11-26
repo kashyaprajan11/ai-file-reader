@@ -10,6 +10,9 @@ provider:
   runtime: nodejs20.x
   region: ap-south-1
 
+plugins:
+  - serverless-plugin-monorepo
+
 functions:
   api:
     handler: handler.handler

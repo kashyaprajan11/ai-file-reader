@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import { pgPool } from "../db/index.js";
+const bcrypt = require("bcryptjs");
+const { pgPool } = require("../db/index.js");
 
 async function signup(req) {
   const { email, password } = req.body;
@@ -44,4 +44,4 @@ async function login(email, password) {
   }
 }
 
-export { signup, login };
+module.exports = { signup, login };

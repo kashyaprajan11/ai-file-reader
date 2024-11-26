@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-export default function checkJwtAuth(req, res, next) {
+function checkJwtAuth(req, res, next) {
   const token = req.cookies.token;
   try {
     const secret = process.env.JWT_SECRET;
@@ -15,3 +15,5 @@ export default function checkJwtAuth(req, res, next) {
     return res.redirect("/");
   }
 }
+
+module.exports = checkJwtAuth;

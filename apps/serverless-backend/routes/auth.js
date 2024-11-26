@@ -1,7 +1,7 @@
-import express from "express";
-import jwt from "jsonwebtoken";
-import { signup, login } from "../libs/auth.js";
-import checkJwtAuth from "../middlewares/checkJwtAuth.js";
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const { signup, login } = require("../libs/auth.js");
+const checkJwtAuth = require("../middlewares/checkJwtAuth.js");
 
 const router = express.Router();
 
@@ -62,4 +62,4 @@ router.get("/auth-check", checkJwtAuth, (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
