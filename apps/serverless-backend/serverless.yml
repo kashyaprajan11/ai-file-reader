@@ -12,6 +12,11 @@ provider:
 
 plugins:
   - serverless-plugin-monorepo
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 5000
 
 functions:
   api:
