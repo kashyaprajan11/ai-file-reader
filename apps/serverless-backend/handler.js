@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const dotenv = require("dotenv");
 
 const authRoutes = require("./routes/auth.js");
 const githubRoutes = require("./routes/github.js");
