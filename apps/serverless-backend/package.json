@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "dev": "sls offline",
     "db:migrate:local": "rambler -c rambler.json -e local apply --all",
     "db:rollback:local": "rambler -c rambler.json -e local reverse"
   },
