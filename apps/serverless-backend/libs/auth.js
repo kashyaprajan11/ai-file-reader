@@ -6,7 +6,6 @@ async function signup(req) {
   let newUser = null;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("password", hashedPassword);
     const newRes = await pgPool.query(
       `insert into file_reader_public.user (email, password_hash) values ($1, $2) returning *`,
       [email, hashedPassword]
