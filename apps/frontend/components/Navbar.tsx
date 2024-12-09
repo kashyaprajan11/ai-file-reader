@@ -5,9 +5,9 @@ export default function Navbar() {
   const { user, handleLogout } = useAppContext();
   const isUserLoggedIn = !!user;
   return (
-    <div className="navbar bg-base-100 flex justify-between">
+    <div className="relative z-10 navbar bg-base-100 flex justify-between">
       <a href="/" className="btn btn-ghost text-xl">
-        Read your Files
+        README Genius
       </a>
       {!isUserLoggedIn && (
         <div className="flex gap-2">

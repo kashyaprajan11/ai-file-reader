@@ -1,4 +1,6 @@
 import { Octokit } from "octokit";
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 const octokit = new Octokit();
 
@@ -29,4 +31,8 @@ export async function getGithubReadme(owner: string, repo: string) {
     "utf-8"
   );
   return decodedContent;
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
