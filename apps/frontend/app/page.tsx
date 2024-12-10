@@ -2,10 +2,12 @@
 import ScrollSplitSection from "@/components/ScrollSplitSection";
 import TechUsed from "@/components/TechUsed";
 import { WavyBackground } from "@/components/wavy-background";
+import Features from "@/components/features";
+import UseCases from "@/components/use-cases";
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <WavyBackground>
         <p className="max-w-5xl text-2xl md:text-6xl text-center leading-snug drop-shadow-md">
           <span className="font-bold">Decode Repositories, Instantly:</span>{" "}
@@ -14,6 +16,8 @@ export default function Home() {
         </p>
       </WavyBackground>
       <ScrollSplitSection />
+      <Features />
+      <UseCases />
       <TechUsed />
     </div>
   );
