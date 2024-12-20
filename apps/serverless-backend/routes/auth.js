@@ -47,8 +47,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res, next) => {
+  console.log("cookies", req.cookies);
   if (req.cookies.token) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
   }
   res.status(200).json({ message: "Logout successful" });
 });

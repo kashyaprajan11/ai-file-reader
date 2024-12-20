@@ -95,12 +95,12 @@ function AppProvider({ children }: { children: React.ReactNode }) {
       await axios({
         method: "POST",
         url: `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+        withCredentials: true,
       });
       dispatch({
         type: appActionTypes.RESET,
       });
       router.push("/login");
-      console.log("successfully logged out");
     } catch (err) {
       console.error("Could not logout", err);
     }
