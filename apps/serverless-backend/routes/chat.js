@@ -113,8 +113,6 @@ router.post("/user", checkJwtAuth, async (req, res) => {
     Github Readme Content:
     ${combinedContent}
   `;
-
-    console.log("Combined content", combinedContent);
     const answer = await getChatGptAnswer(content);
 
     return res.status(200).json({ success: true, combinedContent, answer });

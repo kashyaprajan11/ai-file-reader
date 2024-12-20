@@ -5,6 +5,7 @@ import { WavyBackground } from "@/components/wavy-background";
 import Features from "@/components/features";
 import UseCases from "@/components/use-cases";
 import GetInTouch from "@/components/get-in-touch";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <UseCases />
       <TechUsed />
       <GetInTouch />
+      <Footer />
     </div>
   );
 }

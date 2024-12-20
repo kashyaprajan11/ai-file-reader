@@ -53,7 +53,7 @@ export default function Register() {
   };
   return (
     <div className="flex flex-col w-full gap-4 max-w-sm items-center justify-center mx-auto">
-      <p>Register here</p>
+      <p>Register</p>
       <Controller
         name="email"
         control={control}
@@ -89,6 +89,10 @@ export default function Register() {
       <button className="btn w-full" onClick={handleSubmit(handleCreateUser)}>
         Submit
       </button>
+      <p className="opacity-20">
+        Hint: You can use any random id and password to register. No
+        verification required.
+      </p>
       {showToast && <Toast />}
     </div>
   );
