@@ -18,7 +18,7 @@ export default function Home() {
         </p>
       </WavyBackground>
       <ScrollSplitSection />
-      <Features />
+      {/* <Features /> */}
       <UseCases />
       <TechUsed />
       <GetInTouch />
