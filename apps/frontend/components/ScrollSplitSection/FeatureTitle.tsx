@@ -18,8 +18,6 @@ export default function FeatureTitle({ children, id }: Props) {
   const setInViewFeature = useFeatureStore((state) => state.setInViewFeature);
   const inViewFeature = useFeatureStore((state) => state.inViewFeature);
 
-  console.log(inViewFeature);
-
   React.useEffect(() => {
     if (isInView) setInViewFeature(id);
     if (!isInView && inViewFeature === id) setInViewFeature(null);

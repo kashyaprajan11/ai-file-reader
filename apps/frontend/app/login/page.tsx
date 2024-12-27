@@ -42,7 +42,6 @@ export default function Register() {
     email: string;
     password: string;
   }) => {
-    console.log("clicked");
     try {
       const res = await axios({
         method: "post",

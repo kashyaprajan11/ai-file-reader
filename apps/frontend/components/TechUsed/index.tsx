@@ -13,7 +13,6 @@ export default function TechUsed() {
     <div>
       <div>
         <p className="text-center text-6xl mb-10">Tech Used</p>
-
         <IconCloud
           iconSlugs={[
             "react",

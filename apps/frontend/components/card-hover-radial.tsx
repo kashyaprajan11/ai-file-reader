@@ -35,8 +35,6 @@ export const RadialHoverCard = ({
 
       mouseX.set(x);
       mouseY.set(y);
-
-      console.log(x);
     }
   };
 
