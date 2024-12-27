@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express();
 
-const whitelistedOrigins = ["https://ai-file-reader-frontend.vercel.app/"];
+const whitelistedOrigins = ["https://ai-file-reader-frontend.vercel.app"];
 
 app.use(
   cors({
