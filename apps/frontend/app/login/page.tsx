@@ -24,16 +24,10 @@ export default function Register() {
   const router = useRouter();
   const { dispatch } = useAppContext();
 
-  const [showToast, setShowToast] = useState<boolean>(false);
-
-  const { watch, control, handleSubmit } = useForm({
+  const { watch, control, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yup.object().shape(resolver)),
   });
   watch();
-
-  const toggleShowToast = () => {
-    setShowToast((prev) => !prev);
-  };
 
   const handleLogin = async ({
     email,
@@ -57,8 +51,22 @@ export default function Register() {
         type: appActionTypes.UPDATE_LOGGED_IN_USER,
         user: res?.data?.user,
       });
+      dispatch({
+        type: appActionTypes.TOGGLE_TOAST,
+        showToast: true,
+        toastMessage: "Successfully logged in",
+      });
+      setValue("email", "");
+      setValue("password", "");
       router.push("/dashboard");
     } catch (err) {
+      dispatch({
+        type: appActionTypes.TOGGLE_TOAST,
+        showToast: true,
+        toastMessage: "Error encountered. Cannot login!",
+      });
+      setValue("email", "");
+      setValue("password", "");
       console.log("Problems faced while logging in", err);
     }
   };
@@ -100,7 +108,6 @@ export default function Register() {
       <button className="btn w-full" onClick={handleSubmit(handleLogin)}>
         Submit
       </button>
-      {showToast && <Toast />}
     </div>
   );
 }

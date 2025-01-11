@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import Toast from "@/components/Toast";
 
@@ -20,14 +21,19 @@ const resolver = {
 };
 
 export default function Register() {
+  const router = useRouter();
   const [showToast, setShowToast] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>("");
 
-  const { watch, control, handleSubmit } = useForm({
+  const { watch, control, handleSubmit, setValue } = useForm({
     resolver: yupResolver(yup.object().shape(resolver)),
   });
   watch();
 
-  const toggleShowToast = () => {
+  const toggleShowToast = (message: string | null = null) => {
+    if (message) {
+      setToastMessage(message);
+    }
     setShowToast((prev) => !prev);
   };
 
@@ -47,7 +53,14 @@ export default function Register() {
           password,
         },
       });
+      toggleShowToast("Account successfully created.");
+      setValue("email", "");
+      setValue("password", "");
+      router.push("/login");
     } catch (err) {
+      toggleShowToast("Error creating Account! Please try again later.");
+      setValue("email", "");
+      setValue("password", "");
       console.log("Problems faced while creating user", err);
     }
   };
@@ -93,7 +106,10 @@ export default function Register() {
         Hint: You can use any random id and password to register. No
         verification required.
       </p>
-      {showToast && <Toast />}
+
+      {showToast && (
+        <Toast message={toastMessage} onClose={() => setShowToast(false)} />
+      )}
     </div>
   );
 }

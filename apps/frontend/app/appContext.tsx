@@ -2,6 +2,7 @@
 import * as React from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Toast from "@/components/Toast";
 
 interface User {
   id: string;
@@ -11,7 +12,9 @@ interface User {
 
 interface AppContextData {
   user: User | undefined;
+  showToast: boolean;
   isLoading: boolean;
+  toastMessage: string;
   dispatch: React.Dispatch<Action>;
   handleLogout: () => void;
 }
@@ -20,6 +23,8 @@ interface Action {
   type: string;
   user?: User;
   isLoading?: boolean;
+  showToast?: boolean;
+  toastMessage?: string;
 }
 
 const AppContext = React.createContext<AppContextData | null>(null);
@@ -27,12 +32,15 @@ const AppContext = React.createContext<AppContextData | null>(null);
 const initialState: AppContextData = {
   user: undefined,
   isLoading: false,
+  showToast: false,
+  toastMessage: "",
   dispatch: () => null,
   handleLogout: () => null,
 };
 
 const appActionTypes = {
   TOGGLE_LOADING: "TOGGLE_LOADING",
+  TOGGLE_TOAST: "TOGGLE_TOAST",
   UPDATE_LOGGED_IN_USER: "UPDATE_LOGGED_IN_USER",
   RESET: "RESET",
 };
@@ -41,6 +49,12 @@ function appReducer(state = initialState, action: Action): AppContextData {
   switch (action.type) {
     case appActionTypes.TOGGLE_LOADING:
       return { ...state, isLoading: action.isLoading ?? !state.isLoading };
+    case appActionTypes.TOGGLE_TOAST:
+      return {
+        ...state,
+        showToast: action.showToast ?? false,
+        toastMessage: action.toastMessage ?? "",
+      };
     case appActionTypes.UPDATE_LOGGED_IN_USER: {
       return { ...state, user: action.user };
     }
@@ -100,8 +114,18 @@ function AppProvider({ children }: { children: React.ReactNode }) {
       dispatch({
         type: appActionTypes.RESET,
       });
+      dispatch({
+        type: appActionTypes.TOGGLE_TOAST,
+        showToast: true,
+        toastMessage: "Successfully logged out!",
+      });
       router.push("/login");
     } catch (err) {
+      dispatch({
+        type: appActionTypes.TOGGLE_TOAST,
+        showToast: true,
+        toastMessage: "Error logging out!",
+      });
       console.error("Could not logout", err);
     }
   };
@@ -109,6 +133,18 @@ function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <AppContext.Provider value={{ ...state, dispatch, handleLogout }}>
       {children}
+      {state.showToast && (
+        <Toast
+          message={state.toastMessage}
+          onClose={() =>
+            dispatch({
+              type: appActionTypes.TOGGLE_TOAST,
+              showToast: false,
+              toastMessage: "",
+            })
+          }
+        />
+      )}
     </AppContext.Provider>
   );
 }
