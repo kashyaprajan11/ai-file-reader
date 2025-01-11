@@ -12,6 +12,7 @@ provider:
   httpApi:
     cors:
       allowedOrigins:
+        - http://localhost:3000
         - https://ai-file-reader-frontend.vercel.app
       allowedHeaders:
         - Content-Type
