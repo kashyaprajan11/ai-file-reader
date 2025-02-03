@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
       const repoReadmeContent = await getGithubReadme(owner, repo);
       const { sections } = processMarkdown(repoReadmeContent);
 
-      await Promise.all(
+      await Promise.allSettled(
         sections.map((section) =>
           axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/github/github-url-section`,
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
       <div className="flex flex-wrap gap-6 justify-center items-start px-4 py-6">
         <div className="w-full md:w-1/2 bg-gray-800 p-6 rounded shadow-md">
           <h2 className="text-xl font-semibold text-gray-100 mb-4">
-            GitHub URL Embeddings
+            GitHub URL
           </h2>
           <input
             value={url}

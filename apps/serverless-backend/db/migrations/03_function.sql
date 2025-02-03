@@ -1,6 +1,6 @@
 -- rambler up
 create or replace function file_reader_public.match_github_section(
-    embedding vector(384),
+    embedding vector(1536),
     match_threshold float,
     user_id uuid
 )

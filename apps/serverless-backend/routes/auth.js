@@ -35,10 +35,9 @@ router.post("/login", async (req, res) => {
 
   const cookieRes = res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     secure: process.env.NODE_ENV === "production",
-    // maxAge: 1000000,
-    // signed: true,
+    maxAge: 3600000,
   });
 
   res.status(200).json({
@@ -47,12 +46,11 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res, next) => {
-  console.log("cookies", req.cookies);
   if (req.cookies.token) {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       path: "/",
     });
   }

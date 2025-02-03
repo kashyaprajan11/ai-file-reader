@@ -1,20 +1,20 @@
-// Dynamic import since require doesn't work with @xenova/transformers
+const OpenAI = require("openai");
 
-module.exports = {
-  createEmbedding: async (content) => {
-    const { pipeline } = await import("@xenova/transformers");
-    try {
-      const pipe = await pipeline("feature-extraction", "Supabase/gte-small");
-      const output = await pipe(content, {
-        pooling: "mean",
-        normalize: true,
-      });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-      const embedding = Array.from(output.data);
-      return JSON.stringify(embedding);
-    } catch (err) {
-      console.log("Error creating embedding", err);
-      return null;
-    }
-  },
+const createEmbedding = async (content) => {
+  try {
+    const response = await openai.embeddings.create({
+      model: "text-embedding-3-small",
+      input: content,
+    });
+
+    const embedding = response.data[0].embedding;
+    return JSON.stringify(embedding);
+  } catch (err) {
+    console.error("Error creating embedding:", err);
+    throw err;
+  }
 };
+
+module.exports = { createEmbedding };

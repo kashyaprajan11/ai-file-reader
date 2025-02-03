@@ -29,7 +29,7 @@ create table if not exists file_reader_public.github_url_sections (
     id uuid primary key default gen_random_uuid(),
     github_url_id uuid not null references file_reader_public.github_url(id) on delete cascade,
     content text not null,
-    embedding vector (384),
+    embedding vector (1536),
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now()
 );
@@ -39,7 +39,7 @@ create table if not exists file_reader_public.document_sections (
     id uuid primary key default gen_random_uuid(),
     document_id uuid not null references file_reader_public.document(id),
     content text not null,
-    embedding vector (384),
+    embedding vector (1536),
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now()
 );

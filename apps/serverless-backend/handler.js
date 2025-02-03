@@ -19,7 +19,6 @@ const whitelistedOrigins = ["https://ai-file-reader-frontend.vercel.app"];
 app.use(
   cors({
     origin: (origin, callback) => {
-      console.log("Request Origin:", origin);
       if (
         !origin ||
         whitelistedOrigins.includes(origin) ||
