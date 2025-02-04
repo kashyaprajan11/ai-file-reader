@@ -2,6 +2,7 @@
 import ScrollSplitSection from "@/components/ScrollSplitSection";
 import TechUsed from "@/components/TechUsed";
 import { WavyBackground } from "@/components/wavy-background";
+import { HeroVideoDialog } from "@/components/hero-video-dialog";
 import Features from "@/components/features";
 import UseCases from "@/components/use-cases";
 import GetInTouch from "@/components/get-in-touch";
@@ -17,7 +18,16 @@ export default function Home() {
           <span className="font-bold">README</span>
         </p>
       </WavyBackground>
-      <ScrollSplitSection />
+      <div className="max-w-6xl mx-auto mb-[6rem]">
+        <HeroVideoDialog
+          className="block"
+          animationStyle="from-center"
+          videoSrc="https://www.youtube.com/embed/bhfvGec0-8k?si=BMI3AvK5BfDIUqde"
+          thumbnailSrc="https://ai-file-reader-frontend.vercel.app/images/ai-file-reader-demo-thumbnail.webp"
+          thumbnailAlt="Hero Video"
+        />
+      </div>
+
       {/* <Features /> */}
       <UseCases />
       <TechUsed />
