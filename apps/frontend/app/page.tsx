@@ -28,6 +28,7 @@ export default function Home() {
         />
       </div>
 
+      <ScrollSplitSection />
       {/* <Features /> */}
       <UseCases />
       <TechUsed />
